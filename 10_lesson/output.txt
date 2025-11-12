@@ -1,0 +1,6 @@
+{
+  "username": "Vasyl",
+  "password": "12321",
+  "body": "some information",
+  "id": 101
+}
