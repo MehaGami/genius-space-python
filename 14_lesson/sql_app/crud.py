@@ -47,3 +47,14 @@ def update_user_email(db: Session, user_id: int, update_data: schemas.UserBase):
 def delete_user(db: Session, user: models.User):
     db.delete(user)
     db.commit()
+
+def update_item(db: Session, item_id: int, update_data: schemas.ItemBase):
+    item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    item.description = update_data.description
+    db.commit()
+    db.refresh(item)
+    return item
+
+def delete_item(db: Session, item: models.Item):
+    db.delete(item)
+    db.commit()

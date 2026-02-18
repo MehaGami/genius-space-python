@@ -65,4 +65,16 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     crud.delete_user(db=db, user=user)
     return "User was deleted succsessfully"
+
+@app.patch("/update_item/{item_id}", response_model=schemas.ItemBase)
+def update_item(item_id: int, new_description: schemas.ItemBase, db: Session = Depends(get_db)):
+    return crud.update_item(db=db, item_id=item_id, update_data=new_description)
+
+@app.delete("/delete_item/{item_id}")
+def delete_item(item_id: int, db: Session = Depends(get_db)):
+    item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    crud.delete_item(db=db, item=item)
+    return "Item was deleted successfully"
     
